@@ -28,16 +28,6 @@ if [ ! -d images ]
     mkdir -p ./images
 fi
 
-# Download the train images.
-cd ./images
-echo "Downloading MSCOCO train images ..."
-curl -LO http://images.cocodataset.org/zips/train2017.zip
-# Unzip the train images.
-echo "Extracting train images ..."
-unzip -qqj train2017.zip
-# Delete train images zip file.
-echo "Removing train zip file ..."
-rm train2017.zip
 # Download the val images.
 echo "Downloading MSCOCO val images ..."
 curl -LO http://images.cocodataset.org/zips/val2017.zip
