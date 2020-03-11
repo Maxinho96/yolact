@@ -28,6 +28,7 @@ if [ ! -d images ]
     mkdir -p ./images
 fi
 
+cd ./images
 # Download the val images.
 echo "Downloading MSCOCO val images ..."
 curl -LO http://images.cocodataset.org/zips/val2017.zip
