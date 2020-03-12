@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+# # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -153,6 +153,7 @@ scripts/aws3/
 data/config_dev.py
 data/coco/
 data/sbd/
+data/*.mp4
 
 vid/
 vidres/
