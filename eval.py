@@ -1008,6 +1008,8 @@ def calc_map(ap_data):
     aps = [{'box': [], 'mask': []} for _ in iou_thresholds]
 
     for _class in range(len(cfg.dataset.class_names)):
+    # Uncomment this for mAP of person for model trained on whole 80 classes.
+    # for _class in range(1):
         for iou_idx in range(len(iou_thresholds)):
             for iou_type in ('box', 'mask'):
                 ap_obj = ap_data[iou_type][iou_idx][_class]
