@@ -155,6 +155,26 @@ coco2017_testdev_dataset = dataset_base.copy({
     'label_map': COCO_LABEL_MAP
 })
 
+# This should be used for the pretrained model on the whole 80 classes COCO.
+coco2017_dataset_person_1 = dataset_base.copy({
+    'name': 'COCO 2017 Person',
+    
+    'train_info': './data/coco/annotations/instances_train2017_person.json',
+    'valid_info': './data/coco/annotations/instances_val2017_person.json',
+    
+    'label_map': COCO_LABEL_MAP
+})
+
+# This should be used for a model trained only on the person class.
+coco2017_dataset_person_2 = dataset_base.copy({
+    'name': 'COCO 2017 Person',
+    
+    'train_info': './data/coco/annotations/instances_train2017_person.json',
+    'valid_info': './data/coco/annotations/instances_val2017_person.json',
+    
+    'class_names': ('person',)
+})
+
 PASCAL_CLASSES = ("aeroplane", "bicycle", "bird", "boat", "bottle",
                   "bus", "car", "cat", "chair", "cow", "diningtable",
                   "dog", "horse", "motorbike", "person", "pottedplant",
@@ -803,6 +823,29 @@ yolact_plus_resnet50_config = yolact_plus_base_config.copy({
         'preapply_sqrt': False,
         'use_square_anchors': False,
     }),
+})
+
+yolact_plus_resnet50_person_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_person',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': coco2017_dataset_person_2,
+    'num_classes': len(coco2017_dataset_person_2.class_names) + 1,
+    # Training params
+    'max_iter': 40000,
+    'lr': 1e-4,
+    'momentum': 0.9,
+    'decay': 5e-4,
+    'gamma': 0.1,
+    'lr_steps': (.35 * 40000, .75 * 40000, .88 * 40000, .93 * 40000),
 })
 
 
