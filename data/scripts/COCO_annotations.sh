@@ -23,7 +23,6 @@ if [ -z "$1" ]
     cd $1
 fi
 
-cd ../
 if [ ! -d annotations ]
   then
     mkdir -p ./annotations
