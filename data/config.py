@@ -179,7 +179,7 @@ ochuman_dataset = dataset_base.copy({
     'name': 'OCHuman',
     
     'train_info': './data/coco/annotations/ochuman_coco.json',
-    'valid_info': None, #'./data/coco/annotations/instances_val2017_person.json',
+    'valid_info': './data/coco/annotations/instances_val2017_person.json',
     
     'class_names': ('person',)
 })
@@ -872,12 +872,12 @@ yolact_plus_resnet50_ochuman_config = yolact_plus_base_config.copy({
     'dataset': ochuman_dataset,
     'num_classes': len(ochuman_dataset.class_names) + 1,
     # Training params
-    'max_iter': 40000,
-    'lr': 1e-4,
+    'max_iter': 20000,
+    'lr': 1e-3,
     'momentum': 0.9,
     'decay': 5e-4,
     'gamma': 0.1,
-    'lr_steps': (.35 * 40000, .75 * 40000, .88 * 40000, .93 * 40000),
+    'lr_steps': (.35 * 20000, .75 * 20000, .88 * 40000, .93 * 20000),
 })
 
 
