@@ -181,7 +181,7 @@ ochuman_dataset = dataset_base.copy({
     'train_info': './data/coco/annotations/ochuman_coco.json',
     'valid_info': './data/coco/annotations/instances_val2017_person.json',
     
-    'class_names': ('person',)
+    'label_map': COCO_LABEL_MAP
 })
 
 PASCAL_CLASSES = ("aeroplane", "bicycle", "bird", "boat", "bottle",
@@ -846,8 +846,8 @@ yolact_plus_resnet50_person_config = yolact_plus_base_config.copy({
         'preapply_sqrt': False,
         'use_square_anchors': False,
     }),
-    'dataset': coco2017_dataset_person_2,
-    'num_classes': len(coco2017_dataset_person_2.class_names) + 1,
+    'dataset': coco2017_dataset_person_1,
+    'num_classes': len(coco2017_dataset_person_1.class_names) + 1,
     # Training params
     'max_iter': 40000,
     'lr': 1e-4,
