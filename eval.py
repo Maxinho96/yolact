@@ -1005,7 +1005,7 @@ def evaluate(net:Yolact, dataset, train_mode=False):
         print('Stopping...')
 
 
-def calc_map(ap_data, class_ids):
+def calc_map(ap_data):
     print('Calculating mAP...')
     aps = [{'box': [], 'mask': []} for _ in iou_thresholds]
     
