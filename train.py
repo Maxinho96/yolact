@@ -500,7 +500,10 @@ def compute_validation_map(epoch, iteration, yolact_net, dataset, log:Log=None):
         yolact_net.train()
 
 def setup_eval():
-    eval_script.parse_args(['--no_bar', '--max_images='+str(args.validation_size), '--only_person='+str(args.eval_only_person)])
+    args_list = ['--no_bar', '--max_images='+str(args.validation_size)]
+    if args.eval_only_person:
+      args_list += ['--only_person']
+    eval_script.parse_args(args_list)
 
 if __name__ == '__main__':
     train()
