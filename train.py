@@ -78,6 +78,8 @@ parser.add_argument('--batch_alloc', default=None, type=str,
                     help='If using multiple GPUS, you can set this to be a comma separated list detailing which GPUs should get what local batch size (It should add up to your total batch size).')
 parser.add_argument('--no_autoscale', dest='autoscale', action='store_false',
                     help='YOLACT will automatically scale the lr and the number of iterations depending on the batch size. Set this if you want to disable that.')
+parser.add_argument('--eval_only_person', default=False, dest='eval_only_person', action='store_true',
+                    help='Only evaluate on the person class, ignore the other classes.')
 
 parser.set_defaults(keep_latest=False, log=True, log_gpu=False, interrupt=True, autoscale=True)
 args = parser.parse_args()
@@ -498,7 +500,7 @@ def compute_validation_map(epoch, iteration, yolact_net, dataset, log:Log=None):
         yolact_net.train()
 
 def setup_eval():
-    eval_script.parse_args(['--no_bar', '--max_images='+str(args.validation_size)])
+    eval_script.parse_args(['--no_bar', '--max_images='+str(args.validation_size), '--only_person='+str(args.eval_only_person)])
 
 if __name__ == '__main__':
     train()
