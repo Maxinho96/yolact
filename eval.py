@@ -113,6 +113,8 @@ def parse_args(argv=None):
                         help='When displaying / saving video, draw the FPS on the frame')
     parser.add_argument('--emulate_playback', default=False, dest='emulate_playback', action='store_true',
                         help='When saving a video, emulate the framerate that you\'d get running in real-time mode.')
+    parser.add_argument('--only_person', default=False, dest='only_person', action='store_true',
+                        help='Only evaluate on the person class, ignore the other classes.')
 
     parser.set_defaults(no_bar=False, display=False, resume=False, output_coco_json=False, output_web_json=False, shuffle=False,
                         benchmark=False, no_sort=False, no_hash=False, mask_proto_debug=False, crop=True, detect=False, display_fps=False,
@@ -1003,11 +1005,16 @@ def evaluate(net:Yolact, dataset, train_mode=False):
         print('Stopping...')
 
 
-def calc_map(ap_data):
+def calc_map(ap_data, class_ids):
     print('Calculating mAP...')
     aps = [{'box': [], 'mask': []} for _ in iou_thresholds]
-
-    for _class in range(len(cfg.dataset.class_names)):
+    
+    if args.only_person:
+        class_ids = [0]
+    else:
+        class_ids = range(len(cfg.dataset.class_names))
+    
+    for _class in class_ids:
     # Uncomment this for mAP of person for model trained on whole 80 classes.
     # for _class in range(1):
         for iou_idx in range(len(iou_thresholds)):
