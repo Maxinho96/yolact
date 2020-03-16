@@ -487,7 +487,13 @@ class Yolact(nn.Module):
             if key.startswith('fpn.downsample_layers.'):
                 if cfg.fpn is not None and int(key.split('.')[2]) >= cfg.fpn.num_downsample:
                     del state_dict[key]
-        self.load_state_dict(state_dict)
+        # Uncomment this in normal conditions
+        # self.load_state_dict(state_dict)
+        # Added this for fine-tuning. Comment this in normal conditions.
+        try:
+            self.load_state_dict(state_dict)
+        except RuntimeError as e:
+            print('Ignoring "' + str(e) + '"')
 
     def init_weights(self, backbone_path):
         """ Initialize weights for training. """
