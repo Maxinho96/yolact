@@ -174,6 +174,15 @@ coco2017_dataset_person_2 = dataset_base.copy({
     
     'class_names': ('person',)
 })
+    
+ochuman_dataset = dataset_base.copy({
+    'name': 'OCHuman',
+    
+    'train_info': './data/coco/annotations/ochuman_coco.json',
+    'valid_info': None, #'./data/coco/annotations/instances_val2017_person.json',
+    
+    'class_names': ('person',)
+})
 
 PASCAL_CLASSES = ("aeroplane", "bicycle", "bird", "boat", "bottle",
                   "bus", "car", "cat", "chair", "cow", "diningtable",
@@ -839,6 +848,29 @@ yolact_plus_resnet50_person_config = yolact_plus_base_config.copy({
     }),
     'dataset': coco2017_dataset_person_2,
     'num_classes': len(coco2017_dataset_person_2.class_names) + 1,
+    # Training params
+    'max_iter': 40000,
+    'lr': 1e-4,
+    'momentum': 0.9,
+    'decay': 5e-4,
+    'gamma': 0.1,
+    'lr_steps': (.35 * 40000, .75 * 40000, .88 * 40000, .93 * 40000),
+})
+    
+yolact_plus_resnet50_ochuman_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_ochuman',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': ochuman_dataset,
+    'num_classes': len(ochuman_dataset.class_names) + 1,
     # Training params
     'max_iter': 40000,
     'lr': 1e-4,
