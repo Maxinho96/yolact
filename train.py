@@ -369,7 +369,7 @@ def train():
             
             # This is done per epoch
             if args.validation_iter > 0:
-                if iteration % args.validation_iter == 0 and epoch > 0:
+                if iteration % args.validation_iter == 0:
                     compute_validation_map(epoch, iteration, yolact_net, val_dataset, log if args.log else None)
         
         # Compute validation mAP after training is finished
