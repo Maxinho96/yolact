@@ -367,10 +367,9 @@ def train():
                             print('Deleting old save...')
                             os.remove(latest)
             
-            # This is done per epoch
-            if args.validation_iter > 0:
-                if iteration % args.validation_iter == 0:
-                    compute_validation_map(epoch, iteration, yolact_net, val_dataset, log if args.log else None)
+                    if args.validation_iter > 0:
+                        if iteration % args.validation_iter == 0:
+                            compute_validation_map(epoch, iteration, yolact_net, val_dataset, log if args.log else None)
         
         # Compute validation mAP after training is finished
         compute_validation_map(epoch, iteration, yolact_net, val_dataset, log if args.log else None)
