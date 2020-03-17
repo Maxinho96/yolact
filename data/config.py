@@ -872,12 +872,12 @@ yolact_plus_resnet50_ochuman_config = yolact_plus_base_config.copy({
     'dataset': ochuman_dataset,
     'num_classes': len(ochuman_dataset.class_names) + 1,
     # Training params
-    'max_iter': 20000,
-    'lr': 1e-3,
+    'max_iter': 7000,
+    'lr': 1e-4,
     'momentum': 0.9,
     'decay': 5e-4,
     'gamma': 0.1,
-    'lr_steps': (.35 * 20000, .75 * 20000, .88 * 40000, .93 * 20000),
+    'lr_steps': (.35 * 7000, .75 * 7000, .88 * 7000, .93 * 7000),
 })
 
 
