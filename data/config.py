@@ -849,12 +849,12 @@ yolact_plus_resnet50_person_config = yolact_plus_base_config.copy({
     'dataset': coco2017_dataset_person_1,
     'num_classes': len(coco2017_dataset_person_1.class_names) + 1,
     # Training params
-    'max_iter': 40000,
+    'max_iter': 10000,
     'lr': 1e-4,
     'momentum': 0.9,
     'decay': 5e-4,
     'gamma': 0.1,
-    'lr_steps': (.35 * 40000, .75 * 40000, .88 * 40000, .93 * 40000),
+    'lr_steps': (.35 * 10000, .75 * 10000, .88 * 10000, .93 * 10000),
 })
     
 yolact_plus_resnet50_ochuman_config = yolact_plus_base_config.copy({
