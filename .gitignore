@@ -93,6 +93,8 @@ ENV/
 
 # weights
 weights/
+data/checkpoints
+data/logs
 
 #DS_Store
 .DS_Store
