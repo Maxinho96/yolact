@@ -184,6 +184,17 @@ ochuman_dataset = dataset_base.copy({
     'label_map': COCO_LABEL_MAP
 })
 
+cityscapes_dataset = dataset_base.copy({
+    'name': 'Cityscapes',
+    
+    'train_info': './data/cityscapes/annotations/instancesonly_filtered_gtFine_train.json',
+    'valid_info': './data/cityscapes/annotations/instancesonly_filtered_gtFine_val.json',
+    'train_images': './data/cityscapes/images/',
+    'valid_images': './data/cityscapes/images/',
+
+    'label_map': COCO_LABEL_MAP
+})
+
 PASCAL_CLASSES = ("aeroplane", "bicycle", "bird", "boat", "bottle",
                   "bus", "car", "cat", "chair", "cow", "diningtable",
                   "dog", "horse", "motorbike", "person", "pottedplant",
@@ -858,7 +869,7 @@ yolact_plus_resnet50_person_config = yolact_plus_base_config.copy({
 })
 
 yolact_plus_resnet50_ochuman_exp1_config = yolact_plus_base_config.copy({
-    'name': 'yolact_plus_resnet50_ochuman',
+    'name': 'yolact_plus_resnet50_ochuman_exp1',
     
     'backbone': resnet50_dcnv2_backbone.copy({
         'selected_layers': list(range(1, 4)),
@@ -881,7 +892,7 @@ yolact_plus_resnet50_ochuman_exp1_config = yolact_plus_base_config.copy({
 })
     
 yolact_plus_resnet50_ochuman_exp2_config = yolact_plus_base_config.copy({
-    'name': 'yolact_plus_resnet50_ochuman',
+    'name': 'yolact_plus_resnet50_ochuman_exp2',
     
     'backbone': resnet50_dcnv2_backbone.copy({
         'selected_layers': list(range(1, 4)),
@@ -904,7 +915,7 @@ yolact_plus_resnet50_ochuman_exp2_config = yolact_plus_base_config.copy({
 })
 
 yolact_plus_resnet50_ochuman_exp3_config = yolact_plus_base_config.copy({
-    'name': 'yolact_plus_resnet50_ochuman',
+    'name': 'yolact_plus_resnet50_ochuman_exp3',
     
     'backbone': resnet50_dcnv2_backbone.copy({
         'selected_layers': list(range(1, 4)),
@@ -917,6 +928,29 @@ yolact_plus_resnet50_ochuman_exp3_config = yolact_plus_base_config.copy({
     }),
     'dataset': ochuman_dataset,
     'num_classes': len(ochuman_dataset.class_names) + 1,
+    # Training params
+    'max_iter': 3000,
+    # 'lr': 1e-4,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 3000, .75 * 3000, .88 * 3000, .93 * 3000),
+})
+
+yolact_plus_resnet50_cityscapes_exp4_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_cityscapes_exp4',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': cityscapes_dataset,
+    'num_classes': len(cityscapes_dataset.class_names) + 1,
     # Training params
     'max_iter': 3000,
     # 'lr': 1e-4,
