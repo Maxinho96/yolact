@@ -951,6 +951,8 @@ yolact_plus_resnet50_cityscapes_exp4_config = yolact_plus_base_config.copy({
     }),
     'dataset': cityscapes_dataset,
     'num_classes': len(cityscapes_dataset.class_names) + 1,
+    # Disable augment_expand to avoid memory overflow
+    'augment_expand': False,
     # Training params
     'max_iter': 3000,
     # 'lr': 1e-4,
