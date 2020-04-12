@@ -7,9 +7,9 @@ import sys
 
 import numpy as np
 
-COCO_ROOT = osp.join('.', 'data/coco/')
+COCO_ROOT = osp.join('.', 'data/cityscapes/')
 
-annotation_file = 'instances_train2017.json'
+annotation_file = 'instancesonly_filtered_gtFine_train.json'
 annotation_path = osp.join(COCO_ROOT, 'annotations/', annotation_file)
 
 dump_file = 'weights/bboxes.pkl'
