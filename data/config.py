@@ -1120,6 +1120,106 @@ yolact_plus_resnet50_cityscapes_exp10_config = yolact_plus_base_config.copy({
     'lr_steps': (.35 * 40000, .75 * 40000, .88 * 40000, .93 * 40000),
 })
 
+yolact_plus_resnet50_cityscapes_exp11_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_cityscapes_exp11',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': cityscapes_dataset,
+    'num_classes': len(cityscapes_dataset.class_names) + 1,
+    # Disable augment_expand to avoid memory overflow
+    'augment_expand': False,
+    # Training params
+    'max_iter': 1500,
+    # 'lr': 1e-3,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 1500, .75 * 1500, .88 * 1500, .93 * 1500),
+})
+
+yolact_plus_resnet50_cityscapes_exp12_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_cityscapes_exp12',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': cityscapes_dataset,
+    'num_classes': len(cityscapes_dataset.class_names) + 1,
+    # Disable augment_expand to avoid memory overflow
+    'augment_expand': False,
+    # Training params
+    'max_iter': 1500,
+    # 'lr': 1e-4,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 1500, .75 * 1500, .88 * 1500, .93 * 1500),
+})
+
+yolact_plus_resnet50_cityscapes_exp13_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_cityscapes_exp13',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': cityscapes_dataset,
+    'num_classes': len(cityscapes_dataset.class_names) + 1,
+    # Disable augment_expand to avoid memory overflow
+    'augment_expand': False,
+    # Training params
+    'max_iter': 1500,
+    # 'lr': 1e-5,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 1500, .75 * 1500, .88 * 1500, .93 * 1500),
+})
+
+yolact_plus_resnet50_cityscapes_exp14_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_cityscapes_exp14',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1/2, 1/4, 1]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': cityscapes_dataset,
+    'num_classes': len(cityscapes_dataset.class_names) + 1,
+    # Disable augment_expand to avoid memory overflow
+    'augment_expand': False,
+    # Training params
+    'max_iter': 1500,
+    # 'lr': 1e-3,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 1500, .75 * 1500, .88 * 1500, .93 * 1500),
+})
+
 # Default config
 cfg = yolact_base_config.copy()
 
