@@ -1220,6 +1220,57 @@ yolact_plus_resnet50_cityscapes_exp14_config = yolact_plus_base_config.copy({
     'lr_steps': (.35 * 1500, .75 * 1500, .88 * 1500, .93 * 1500),
 })
 
+yolact_plus_resnet50_cityscapes_exp15_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_cityscapes_exp15',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1/2, 1/4, 1]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': cityscapes_dataset,
+    'num_classes': len(cityscapes_dataset.class_names) + 1,
+    # Disable augment_expand to avoid memory overflow
+    'augment_expand': False,
+    # Training params
+    'max_iter': 3000,
+    # 'lr': 1e-3,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 3000, .75 * 3000, .88 * 3000, .93 * 3000),
+})
+
+yolact_plus_resnet50_cityscapes_exp16_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_cityscapes_exp16',
+    
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        # In this experiment I changed this to reflect person aspect ratios.
+        'pred_aspect_ratios': [ [[1/2,1/4,1]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': cityscapes_dataset,
+    'num_classes': len(cityscapes_dataset.class_names) + 1,
+    # Disable augment_expand to avoid memory overflow
+    'augment_expand': False,
+    # Training params
+    'max_iter': 6000,
+    # 'lr': 1e-5,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 6000, .75 * 6000, .88 * 6000, .93 * 6000),
+})
+
 # Default config
 cfg = yolact_base_config.copy()
 
